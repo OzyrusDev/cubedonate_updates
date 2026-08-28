@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node scripts/validate-updates.mjs"
+    "test": "node scripts/validate-updates.mjs",
+    "sign:cms": "node scripts/sign-manifest.mjs"
   },
   "engines": {
     "node": ">=22.5.0"

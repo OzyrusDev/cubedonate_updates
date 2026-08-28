@@ -3,10 +3,10 @@
   "$id": "https://raw.githubusercontent.com/OzyrusDev/cubedonate_updates/main/schemas/cms-update.schema.json",
   "title": "CubeDonate CMS update manifest",
   "type": "object",
-  "required": ["schemaVersion", "product", "channel", "version", "tag", "publishedAt", "minimumVersion", "required", "releaseUrl", "releaseNotes", "download", "sha256", "signature"],
+  "required": ["schemaVersion", "product", "channel", "version", "tag", "publishedAt", "minimumVersion", "required", "releaseUrl", "releaseNotes", "download", "sourceCommit", "sha256", "signature"],
   "properties": {
     "$schema": { "type": "string" },
-    "schemaVersion": { "const": 1 },
+    "schemaVersion": { "const": 2 },
     "product": { "const": "cubedonate-cms" },
     "channel": { "enum": ["stable", "beta"] },
     "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
@@ -34,8 +34,9 @@
       },
       "additionalProperties": false
     },
-    "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
-    "signature": { "type": ["string", "null"] }
+    "sourceCommit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "signature": { "type": "string", "pattern": "^[A-Za-z0-9+/]{86}==$" }
   },
   "additionalProperties": false
 }

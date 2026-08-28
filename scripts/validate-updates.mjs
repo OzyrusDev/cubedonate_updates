@@ -1,11 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import {verifyManifest} from './manifest-crypto.mjs';
 
 const root=path.resolve(import.meta.dirname,'..');
 const semver=/^\d+\.\d+\.\d+$/;
 const sha256=/^[a-f0-9]{64}$/;
 const failures=[];
+const cmsPublicKey=fs.readFileSync(path.join(root,'keys','updates-ed25519-public.pem'),'utf8');
 
 function readJson(relative){
   try{return JSON.parse(fs.readFileSync(path.join(root,relative),'utf8'))}
@@ -16,7 +18,7 @@ function https(value,label){expect(typeof value==='string'&&value.startsWith('ht
 
 const cms=readJson('cms/latest.json');
 if(cms){
-  expect(cms.schemaVersion===1,'cms/latest.json: unsupported schemaVersion');
+  expect(cms.schemaVersion===2,'cms/latest.json: unsupported schemaVersion');
   expect(cms.product==='cubedonate-cms','cms/latest.json: invalid product');
   expect(semver.test(cms.version),'cms/latest.json: invalid version');
   expect(cms.tag===`v${cms.version}`,'cms/latest.json: tag/version mismatch');
@@ -27,7 +29,11 @@ if(cms){
   https(cms.releaseNotes?.en,'cms/latest.json English release notes');
   expect(cms.download?.repository==='OzyrusDev/cubedonate','cms/latest.json: commercial CMS repository mismatch');
   expect(cms.download?.access==='private','cms/latest.json: CMS download must remain private');
-  expect(cms.sha256===null||sha256.test(cms.sha256),'cms/latest.json: invalid SHA-256');
+  expect(cms.download?.assetName===null,'cms/latest.json: Git source releases must not declare an asset');
+  expect(/^[a-f0-9]{40}$/.test(cms.sourceCommit),'cms/latest.json: invalid source commit');
+  expect(sha256.test(cms.sha256),'cms/latest.json: invalid SHA-256');
+  expect(typeof cms.signature==='string'&&/^[A-Za-z0-9+/]{86}==$/.test(cms.signature),'cms/latest.json: invalid Ed25519 signature encoding');
+  expect(verifyManifest(cms,cmsPublicKey),'cms/latest.json: Ed25519 signature verification failed');
   const immutable=readJson(`cms/releases/${cms.version}.json`);
   if(immutable)expect(JSON.stringify({...cms,$schema:undefined})===JSON.stringify({...immutable,$schema:undefined}),'CMS latest manifest differs from immutable release record');
 }

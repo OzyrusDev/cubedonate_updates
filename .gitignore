@@ -3,6 +3,7 @@
 .env.*
 !.env.example
 *.pem
+!keys/*-public.pem
 *.key
 *.p12
 *.pfx
