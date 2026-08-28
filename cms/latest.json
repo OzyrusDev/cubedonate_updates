@@ -1,0 +1,23 @@
+{
+  "$schema": "../schemas/cms-update.schema.json",
+  "schemaVersion": 1,
+  "product": "cubedonate-cms",
+  "channel": "stable",
+  "version": "2.54.0",
+  "tag": "v2.54.0",
+  "publishedAt": "2026-08-27T21:14:31Z",
+  "minimumVersion": "2.51.0",
+  "required": false,
+  "releaseUrl": "https://github.com/OzyrusDev/cubedonate/releases/tag/v2.54.0",
+  "releaseNotes": {
+    "ru": "https://github.com/OzyrusDev/cubedonate/blob/v2.54.0/docs/ru_updates/UPDATE-2.54.md",
+    "en": "https://github.com/OzyrusDev/cubedonate/blob/v2.54.0/docs/en_updates/UPDATE-2.54.md"
+  },
+  "download": {
+    "access": "private",
+    "repository": "OzyrusDev/cubedonate",
+    "assetName": null
+  },
+  "sha256": null,
+  "signature": null
+}

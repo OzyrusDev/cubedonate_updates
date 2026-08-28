@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/OzyrusDev/cubedonate_updates/main/schemas/cms-update.schema.json",
+  "title": "CubeDonate CMS update manifest",
+  "type": "object",
+  "required": ["schemaVersion", "product", "channel", "version", "tag", "publishedAt", "minimumVersion", "required", "releaseUrl", "releaseNotes", "download", "sha256", "signature"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "product": { "const": "cubedonate-cms" },
+    "channel": { "enum": ["stable", "beta"] },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "tag": { "type": "string", "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "publishedAt": { "type": "string", "format": "date-time" },
+    "minimumVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "required": { "type": "boolean" },
+    "releaseUrl": { "type": "string", "format": "uri" },
+    "releaseNotes": {
+      "type": "object",
+      "required": ["ru", "en"],
+      "properties": {
+        "ru": { "type": "string", "format": "uri" },
+        "en": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    },
+    "download": {
+      "type": "object",
+      "required": ["access", "repository", "assetName"],
+      "properties": {
+        "access": { "enum": ["private", "public"] },
+        "repository": { "type": "string" },
+        "assetName": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "signature": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

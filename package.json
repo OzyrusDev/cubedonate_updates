@@ -1,0 +1,12 @@
+{
+  "name": "cubedonate-update-metadata",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate-updates.mjs"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}
