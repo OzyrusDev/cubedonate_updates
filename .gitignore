@@ -1,0 +1,55 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+client_secret.json
+credentials.json
+secrets/
+private/
+
+# Signing private keys
+signing-private-key*
+*.private
+*.secret
+
+# Commercial packages and database data
+cms/packages/
+cms/private/
+*.sql
+*.dump
+
+# Dependencies and build output
+node_modules/
+target/
+build/
+dist/
+out/
+.gradle/
+.idea/
+.vscode/
+
+# Release binaries belong in GitHub Release assets
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.exe
+*.msi
+*.AppImage
+*.deb
+
+# Temporary and operating-system files
+tmp/
+temp/
+cache/
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini

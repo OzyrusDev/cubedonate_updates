@@ -1,0 +1,14 @@
+{
+  "$schema": "../schemas/launcher-update.schema.json",
+  "schemaVersion": 1,
+  "product": "cubedonate-launcher",
+  "channel": "stable",
+  "status": "not-released",
+  "version": null,
+  "tag": null,
+  "publishedAt": null,
+  "minimumCmsVersion": "2.57.0",
+  "releaseUrl": "https://github.com/OzyrusDev/cubedonate_launcher/releases",
+  "artifacts": {},
+  "signature": null
+}

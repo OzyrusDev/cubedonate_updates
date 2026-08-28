@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/OzyrusDev/cubedonate_updates/main/schemas/launcher-update.schema.json",
+  "title": "CubeDonate Launcher update manifest",
+  "type": "object",
+  "required": ["schemaVersion", "product", "channel", "status", "version", "tag", "publishedAt", "minimumCmsVersion", "releaseUrl", "artifacts", "signature"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "product": { "const": "cubedonate-launcher" },
+    "channel": { "enum": ["stable", "beta"] },
+    "status": { "enum": ["not-released", "released"] },
+    "version": { "type": ["string", "null"] },
+    "tag": { "type": ["string", "null"] },
+    "publishedAt": { "type": ["string", "null"] },
+    "minimumCmsVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "releaseUrl": { "type": "string", "format": "uri" },
+    "artifacts": { "type": "object" },
+    "signature": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}
