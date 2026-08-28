@@ -15,9 +15,11 @@ This repository is intentionally public so installed products can check whether 
 
 Commercial CMS archives, source code, credentials, database dumps, signing private keys, and customer data must never be committed here. CMS packages remain in the private [`OzyrusDev/cubedonate`](https://github.com/OzyrusDev/cubedonate) repository. Launcher source belongs in [`OzyrusDev/cubedonate_launcher`](https://github.com/OzyrusDev/cubedonate_launcher).
 
-## Current trust state
+## Trust model
 
-The initial manifests are informational and use `signature: null` until the Ed25519 release-signing pipeline is introduced. Update clients must fail closed and must not automatically install an unsigned package. CubeDonate CMS continues to download commercial releases from its authorized private source.
+CMS manifests with schema version 2 are signed with Ed25519. The trusted public key is stored in `keys/updates-ed25519-public.pem` and is also embedded in released CMS clients. The signature covers canonical JSON with recursively sorted object keys while omitting only the top-level `$schema` and `signature` fields. Clients fail closed on unsigned, modified, incompatible, or substituted metadata.
+
+The CMS `sha256` field identifies the deterministic tar stream produced by `git archive --format=tar <sourceCommit>`. The private release updater verifies both the exact commit and this digest before making a backup or changing the installed checkout.
 
 ## Validate a change
 
@@ -37,5 +39,11 @@ Every pull request and push to `main` runs the same validation through GitHub Ac
 4. Add an immutable file under the relevant `releases/` directory.
 5. Update `latest.json` only after the release is available.
 6. Never rewrite an already published version record.
+
+To sign a prepared manifest, keep the private key outside the repository and run:
+
+```bash
+CUBEDONATE_UPDATE_PRIVATE_KEY=/secure/updates-ed25519-private.pem npm run sign:cms -- cms/releases/X.Y.Z.json
+```
 
 Copyright © 2026 OzyrusDev. All rights reserved. See [NOTICE.md](NOTICE.md).
