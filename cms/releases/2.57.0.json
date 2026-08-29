@@ -1,5 +1,5 @@
 {
-  "$schema": "../schemas/cms-update.schema.json",
+  "$schema": "../../schemas/cms-update.schema.json",
   "schemaVersion": 2,
   "product": "cubedonate-cms",
   "channel": "stable",
